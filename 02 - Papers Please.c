@@ -46,6 +46,10 @@ int main(int argc, char const *argv[]) {
             if(!inputted[j])
                 continue;
             for(int k=25; k>=j; k--){
+                if(comp_matrix[j][k]==1)
+                    comp_matrix[i][k]=1;
+                if(comp_matrix[j][k]==-1)
+                    break;
                 if(comp_matrix[i][k]==-1){
                     comp_matrix[j][i]=1;
                 }
