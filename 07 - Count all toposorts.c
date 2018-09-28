@@ -1,12 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <math.h>
 
 typedef struct node{
     int data;
     struct node* next;
 }node;
-int n, m, count=0;
+int n, m;
 
 void append(node** head, int v){
     node* newnode = (node*)malloc(sizeof(node));
@@ -32,28 +31,26 @@ int checkmember(node** head, int v){
 }
 
 int alltoposorts(node* adjlst[], int visited[], int indegree[]){
-    int flag = 0;
+    int already_sorted = 1, count=0;
     for(int i=0; i<n; i++){
         if(indegree[i]==0&&!visited[i]){
+            already_sorted = 0;
             node* start = adjlst[i];
             while(start){
                 indegree[start->data]--;
                 start=start->next;
             }
             visited[i]=1;
-            alltoposorts(adjlst, visited, indegree);
+            count+=alltoposorts(adjlst, visited, indegree);
             visited[i]=0;
             start = adjlst[i];
             while(start){
                 indegree[start->data]++;
                 start=start->next;
             }
-            flag=1;
         }
     }
-    if(!flag){
-        count++;
-    }
+    return count+already_sorted;
 }
 
 int main(int argc, char const *argv[]) {
@@ -74,7 +71,6 @@ int main(int argc, char const *argv[]) {
         append(&(adjlst[a]), b);
         indegree[b]++;
     }
-    alltoposorts(adjlst, visited, indegree);
-    printf("%d\n", count);
+    printf("%d\n", alltoposorts(adjlst, visited, indegree));
     return 0;
 }
