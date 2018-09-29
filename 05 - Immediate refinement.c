@@ -2,9 +2,8 @@
 #include <math.h>
 
 void disparr(int n, int arr[]){
-    for(int i=1; i<=n; i++){
+    for(int i=0; i<n; i++)
         printf("%d ", arr[i]);
-    }
     printf("\n");
 }
 
@@ -13,11 +12,9 @@ int main(int argc, char const *argv[]){
     scanf("%d\n", &n);
     int a[n][10000];
     for(int i=0; i<n; i++){
-        int k;
         scanf("%d\n", &a[i][0]);
-        for(int j=1; j<=a[i][0]; j++){
+        for(int j=1; j<=a[i][0]; j++)
             scanf("%d ", &a[i][j]);
-        }
     }
     for(int i=0; i<n; i++){
         for(int j=1, max_subsets=pow(2, a[i][0]-1); j<max_subsets; j++){
@@ -32,20 +29,12 @@ int main(int argc, char const *argv[]){
                     nl++;
                 }
             }
-            for(int j=0; j<i; j++){
-                disparr(a[j][0], a[j]);
-            }
-            for(int k=0; k<l; k++){
-                printf("%d ", ss[k]);
-            }
-            printf("\n");
-            for(int k=0; k<nl; k++){
-                printf("%d ", nss[k]);
-            }
-            printf("\n");
-            for(int j=i+1; j<n; j++){
-                disparr(a[j][0], a[j]);
-            }
+            for(int j=0; j<i; j++)
+                disparr(a[j][0], a[j]+1);
+            disparr(l, ss);
+            disparr(nl, nss);
+            for(int j=i+1; j<n; j++)
+                disparr(a[j][0], a[j]+1);
             printf("*** *** ***\n");
         }
     }
