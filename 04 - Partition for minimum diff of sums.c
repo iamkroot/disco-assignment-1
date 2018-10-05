@@ -14,17 +14,15 @@ int main(int argc, char const *argv[]){
         int mid = lo + (hi-lo)/2;
         int teams=0, current_power=0;
         for(int i=0; i<m; i++){
-            if(current_power+a[i]<=mid){
+            if(current_power+a[i]<=mid)
                 current_power+=a[i];
-            }
             else{
                 teams++;
                 current_power=a[i];
             }
-        }
-        if(teams<=n){
+        } 
+        if(teams<n)
             hi=mid;
-        }
         else
             lo=mid+1;
     }
